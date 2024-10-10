@@ -1,3 +1,7 @@
+.cardPreview-title {
+  color: #213547;
+}
+
 .preview-wrapper {
   padding: 20px;
   border-radius: 10px;
@@ -8,23 +12,24 @@
   margin-bottom: 20px;
 }
 
-.preview-wrapper img {
+.logo {
   width: 50px;
   margin-bottom: 10px;
 }
 
-.preview-wrapper.green {
+/* Dynamiska bakgrundsfärger */
+.green {
   background-color: #82ca1e;
 }
 
-.preview-wrapper.orange {
+.orange {
   background-color: #fdc129;
 }
 
-.preview-wrapper.blue {
+.blue {
   background-color: #026fc9;
 }
 
-.preview-wrapper.gray {
+.gray {
   background-color: gray;
 }

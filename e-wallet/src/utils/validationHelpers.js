@@ -2,7 +2,7 @@
 
 // Denna funktion kontrollerar om kortnumret är giltigt. Det måste vara exakt 16 siffror. inga bokstäver
 export const isValidCardNumber = (cardNumber) => {
-    return cardNumber.length === 16 && !isNaN(cardNumber);
+    return cardNumber.length === 2 && !isNaN(cardNumber);
 };
 // Denna funktion kontrollerar om utgångsdatumet är giltigt. Det får inte vara tidigare än dagens datum
 

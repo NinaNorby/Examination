@@ -5,6 +5,8 @@ import CardForm from "../../components/CardForm/CardForm";
 import "./AddCardPage.css";
 
 function AddCardPage() {
+    // i cards ska samtliga kort sparas. arrayen kommer att hålla alla kort som användaren lägger till
+    const [cards, setCards] = useState([]);
     const [cardNumber, setCardNumber] = useState("");
     const [cardHolder, setCardHolder] = useState("");
     const [expireMonth, setExpireMonth] = useState("");
@@ -12,9 +14,13 @@ function AddCardPage() {
     const [cvc, setCvc] = useState("");
     const [vendor, setVendor] = useState("");
 
+
+
+    //  handleSubmit-funktionen ska validering av kortnummer, utgångsdatum, kortinnehavarens namn och CVC ske . Om något av fälten inte uppfyller kraven, visas ett felmeddelande och kortet läggs INTE till.
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // validering av kortuppgifterna
         if (!isValidCardNumber(cardNumber)) {
             alert("Ogiltigt kortnummer. Det måste vara exakt 16 siffror.");
             return;
@@ -31,15 +37,36 @@ function AddCardPage() {
         if (!isCVCValid(cvc)) {
             alert("Ogiltig CVC-kod. Det måste vara exakt 3 siffror.");
             return;
+            
         }
 
-        console.log("Kort tillagt!");// Ta bort sen 
+        // Ett nytt kortobjekt (newCard) skapas med hjälp av de fält som användaren har fyllt i( cardNumber, cardHolder, expireMonth, expireYear, cvc, vendor/utgivare).
+        const newCard = {
+            cardNumber,
+            cardHolder,
+            expireMonth,
+            expireYear,
+            cvc,
+            vendor,
+        };
+
+        // Lägger till det nya kortet i kortlistan (cards-arrayen). Använder ... spread operatorn för att kopiera den befintliga arrayen och lägga till det nya kortet.
+        // Likt som att pusha. Jag kommer att behöva ändra detta när jag ska använda Redux, tänker jag mig.
+        setCards([...cards, newCard]);
+
+        console.log("Kort tillagt!", newCard); // För D-bugging, SKA  tas bort sen
+
+        // Rensar formulärfält efter att kortet har lagts till för att på så sätt kunna lägga till fler kort.Det ska dock vara max 4 kort som ska kunna läggas till.
+        setCardNumber("");
+        setCardHolder("");
+        setExpireMonth("");
+        setExpireYear("");
+        setCvc("");
+        setVendor("");
     };
 
     return (
         <>
-            <h2>Förhandsgranska ditt kort</h2>
-
             {/* Förhandsvisning av kortet */}
             <CardPreview
                 cardNumber={cardNumber}
@@ -50,8 +77,7 @@ function AddCardPage() {
                 vendor={vendor}
             />
 
-            {/* Formulärkomponenten */}
-            <h2>Lägg till kort</h2>
+            {/* Formulär för att fylla i nytt kort */}
             <CardForm
                 cardNumber={cardNumber}
                 setCardNumber={setCardNumber}
