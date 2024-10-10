@@ -1,0 +1,30 @@
+.preview-wrapper {
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  color: white;
+  text-align: left;
+  box-shadow: 0 0 10px #eba028;
+  margin-bottom: 20px;
+}
+
+.preview-wrapper img {
+  width: 50px;
+  margin-bottom: 10px;
+}
+
+.preview-wrapper.green {
+  background-color: #82ca1e;
+}
+
+.preview-wrapper.orange {
+  background-color: #fdc129;
+}
+
+.preview-wrapper.blue {
+  background-color: #026fc9;
+}
+
+.preview-wrapper.gray {
+  background-color: gray;
+}
