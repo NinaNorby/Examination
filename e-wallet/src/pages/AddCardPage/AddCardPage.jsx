@@ -2,11 +2,12 @@ import { useState } from "react";
 import { isValidCardNumber, isExpirationDateValid, isValidCardHolderName, isCVCValid } from "../../utils/validationHelpers";
 import CardPreview from "../../components/CardPreview/CardPreview";
 import CardForm from "../../components/CardForm/CardForm";
-import "./AddCardPage.css";
+import { canAddCard } from "../../utils/helpers";
 
-function AddCardPage() {
-    // i cards ska samtliga kort sparas. arrayen kommer att hålla alla kort som användaren lägger till
-    const [cards, setCards] = useState([]);
+import styles from "./AddCardPage.module.css";
+
+// Skickar med cards och setCards som props
+function AddCardPage({ cards, setCards }) {
     const [cardNumber, setCardNumber] = useState("");
     const [cardHolder, setCardHolder] = useState("");
     const [expireMonth, setExpireMonth] = useState("");
@@ -14,49 +15,59 @@ function AddCardPage() {
     const [cvc, setCvc] = useState("");
     const [vendor, setVendor] = useState("");
 
-
-
-    //  handleSubmit-funktionen ska validering av kortnummer, utgångsdatum, kortinnehavarens namn och CVC ske . Om något av fälten inte uppfyller kraven, visas ett felmeddelande och kortet läggs INTE till.
+    // handleSubmit-funktionen ska validera kortnummer, utgångsdatum, kortinnehavarens namn och CVC. Om något av fälten inte uppfyller kraven, visas ett felmeddelande och kortet läggs INTE till.
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // validering av kortuppgifterna
-        if (!isValidCardNumber(cardNumber)) {
-            alert("Ogiltigt kortnummer. Det måste vara exakt 16 siffror.");
+        // Validering av kortdata
+        if (!canAddCard(cards)) {
+            alert("Du kan inte lägga till fler än 4 kort.");
             return;
         }
-
-        if (!isExpirationDateValid(expireMonth, expireYear)) {
-            alert("Utgångsdatumet har passerat.");
+        
+        if (!isValidCardNumber(cardNumber, cards)) {
+            alert("Ogiltigt kortnummer. Det måste vara exakt 16 siffror och unikt. Du behöver fylla i detta fält.");
             return;
         }
         if (!isValidCardHolderName(cardHolder)) {
-            alert("Namnet får inte innehålla siffror.");
+            alert("Namnet får inte lämnas tomt eller innehålla siffror.");
             return;
         }
+        
+        if (!isExpirationDateValid(expireMonth, expireYear)) {
+            alert("Utgångsdatumet får inte lämnas tomt eller ha passerat.");
+            return;
+        }
+
         if (!isCVCValid(cvc)) {
             alert("Ogiltig CVC-kod. Det måste vara exakt 3 siffror.");
             return;
-            
+        }
+        if (!vendor) {
+            alert("Du måste välja en kortutgivare.");
+            return;
         }
 
-        // Ett nytt kortobjekt (newCard) skapas med hjälp av de fält som användaren har fyllt i( cardNumber, cardHolder, expireMonth, expireYear, cvc, vendor/utgivare).
+        // Ett nytt kortobjekt (newCard).
         const newCard = {
-            cardNumber,
+            cardNumber, // Använd cardNumber som unik identifierare
             cardHolder,
             expireMonth,
             expireYear,
             cvc,
             vendor,
+            active: true, // Sätt det nya kortet som aktivt
         };
 
-        // Lägger till det nya kortet i kortlistan (cards-arrayen). Använder ... spread operatorn för att kopiera den befintliga arrayen och lägga till det nya kortet.
-        // Likt som att pusha. Jag kommer att behöva ändra detta när jag ska använda Redux, tänker jag mig.
-        setCards([...cards, newCard]);
+        // Uppdaterar kortlistan genom att först sätta alla befintliga kort som inaktiva (active: false!) och sedan lägg till det nya kortet (newCard) som det enda aktiva kortet
+        const updatedCards = cards.map(card => ({ ...card, active: false }));
 
-        console.log("Kort tillagt!", newCard); // För D-bugging, SKA  tas bort sen
+        // lägger till nya kortet
+        setCards([...updatedCards, newCard]);
 
-        // Rensar formulärfält efter att kortet har lagts till för att på så sätt kunna lägga till fler kort.Det ska dock vara max 4 kort som ska kunna läggas till.
+    
+
+        // Rensar formulärfält efter att kortet har lagts till.
         setCardNumber("");
         setCardHolder("");
         setExpireMonth("");
@@ -91,7 +102,7 @@ function AddCardPage() {
                 setCvc={setCvc}
                 vendor={vendor}
                 setVendor={setVendor}
-                handleSubmit={handleSubmit} // Skickar med handleSubmit-funktionen
+                handleSubmit={handleSubmit}
             />
         </>
     );

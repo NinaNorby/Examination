@@ -40,3 +40,34 @@
 .read-the-docs {
   color: #888;
 }
+
+
+.light {
+  background-color: white;
+  color: black;
+}
+
+.dark {
+  background-color: black;
+  color: white;
+}
+
+.green {
+  background-color: rgb(107, 153, 107);
+  color: white;
+
+form{
+  background-color: rgb(107, 153, 107);
+}
+
+  h1, h2{
+    color: rgb(58, 82, 58);
+  }
+
+  button{
+    background-color: rgb(89, 122, 89);
+    color: white;
+  
+ 
+  }
+}
