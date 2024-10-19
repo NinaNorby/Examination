@@ -1,72 +1,84 @@
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    setCardNumber,
+    setCardHolder,
+    setExpireMonth,
+    setExpireYear,
+    setCvc,
+    setVendor
+} from '../../redux/cardSlice';
 import styles from './CardForm.module.css';
 
-function CardForm({
-    cardNumber,
-    setCardNumber,
-    cardHolder,
-    setCardHolder,
-    expireMonth,
-    setExpireMonth,
-    expireYear,
-    setExpireYear,
-    cvc,
-    setCvc,
-    vendor,
-    setVendor,
-    handleSubmit
-}) {
+function CardForm({ handleSubmit, errors }) {
+    const dispatch = useDispatch();
+    const cardNumber = useSelector((state) => state.cards.newCard.cardNumber);
+    const cardHolder = useSelector((state) => state.cards.newCard.cardHolder);
+    const expireMonth = useSelector((state) => state.cards.newCard.expireMonth);
+    const expireYear = useSelector((state) => state.cards.newCard.expireYear);
+    const cvc = useSelector((state) => state.cards.newCard.cvc);
+    const vendor = useSelector((state) => state.cards.newCard.vendor);
+
     return (
         <>
-            {/* Formulärkomponenten */}
-            <h2 className={styles['card-form-title']}>Lägg till kort</h2>
+            <h2 className={styles['card-form-title']}>Card details</h2>
             <div className={styles['form-wrapper']}>
-                <form className={styles['form-add-card']} onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <input
                         type="text"
                         placeholder="Card number (16 digits)"
                         value={cardNumber}
-                        onChange={(e) => setCardNumber(e.target.value)}
-                        className={styles.input} 
+                        onChange={(e) => dispatch(setCardNumber(e.target.value))}
+                        className={styles.input}
                     />
+                    {errors.cardNumber && <p className={styles.error}>{errors.cardNumber}</p>}
+
                     <input
                         type="text"
                         placeholder="Cardholder's Name"
                         value={cardHolder}
-                        onChange={(e) => setCardHolder(e.target.value)}
-                        className={styles.input} 
+                        onChange={(e) => dispatch(setCardHolder(e.target.value))}
+                        className={styles.input}
                     />
+                    {errors.cardHolder && <p className={styles.error}>{errors.cardHolder}</p>}
+
                     <input
                         type="text"
                         placeholder="Expiry date (month)"
                         value={expireMonth}
-                        onChange={(e) => setExpireMonth(e.target.value)}
-                        className={styles.input} 
+                        onChange={(e) => dispatch(setExpireMonth(e.target.value))}
+                        className={styles.input}
                     />
                     <input
                         type="text"
                         placeholder="Expiry date (year)"
                         value={expireYear}
-                        onChange={(e) => setExpireYear(e.target.value)}
-                        className={styles.input} 
+                        onChange={(e) => dispatch(setExpireYear(e.target.value))}
+                        className={styles.input}
                     />
+                    {errors.expireDate && <p className={styles.error}>{errors.expireDate}</p>}
+
                     <input
                         type="text"
                         placeholder="CVC (3 digits)"
                         value={cvc}
-                        onChange={(e) => setCvc(e.target.value)}
-                        className={styles.input} 
+                        onChange={(e) => dispatch(setCvc(e.target.value))}
+                        className={styles.input}
                     />
+                    {errors.cvc && <p className={styles.error}>{errors.cvc}</p>}
+
                     <select
                         value={vendor}
-                        onChange={(e) => setVendor(e.target.value)}
+                        onChange={(e) => dispatch(setVendor(e.target.value))}
                         className={styles['select-vendor']}
                     >
-                        <option value="">Välj Kortutgivare</option>
+                        <option value="">Select Card Issuer</option>
                         <option value="SEB">SEB</option>
                         <option value="Swedbank">Swedbank</option>
                         <option value="Handelsbanken">Handelsbanken</option>
                     </select>
-                    <button className={styles.button} type="submit">Lägg till Kort</button> 
+                    {errors.vendor && <p className={styles.error}>{errors.vendor}</p>}
+
+                    <button className={styles.button} type="submit">Add card</button>
                 </form>
             </div>
         </>

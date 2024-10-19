@@ -1,0 +1,50 @@
+.preview-wrapper {
+    height: 50px;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    text-align: left;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    justify-content: center;
+    font-size: 0.75rem;
+  }
+  
+  .logo {
+    width: 50px;
+    margin-bottom: 10px;
+  }
+  
+  .green {
+    background-color: var(--green-bg, #82ca1e);
+  }
+  
+  .orange {
+    background-color: var(--orange-bg, #fdc129);
+  }
+  
+  .blue {
+    background-color: var(--blue-bg, #026fc9);
+  }
+  
+  .gray {
+    background-color: var(--gray-bg, gray);
+  }
+  
+  /* Mobilvy */
+  @media (max-width: 767px) {
+    .preview-wrapper {
+      width: 250px;
+      height: 150px;
+    }
+  }
+  
+  /* Datorvy */
+  @media (min-width: 768px) {
+    .preview-wrapper {
+      width: 350px;
+      height: 200px;
+    }
+  }
+  

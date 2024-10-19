@@ -1,21 +1,24 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTheme } from "../../redux/themeSlice"; 
+import { deleteCard } from '../../redux/cardSlice'; 
 import styles from './SettingsPage.module.css';
 
-function SettingsPage({ cards, setCards, setTheme }) {
-    const [theme, setThemeChoice] = useState('light'); // Default tema
+function SettingsPage() {
+    const dispatch = useDispatch();
+    const theme = useSelector((state) => state.theme.theme); // Hämtar nuvarande tema från store
+    const cards = useSelector((state) => state.cards.cards); // Hämtar kort från  store
 
     // Funktion för att uppdatera valt tema
     const handleThemeChange = (e) => {
-        const selectedTheme = e.target.value;
-        setThemeChoice(selectedTheme);
-        setTheme(selectedTheme); // Sätter temat i appens state
-        console.log("Selected theme:", selectedTheme); // För felsökning
+        dispatch(setTheme(e.target.value)); // Uppdaterar temat
     };
 
-    // Funktion för att radera alla inaktiva kort
+    // Funktion för att radera alla INAKTIVA  kort
     const handleDeleteInactive = () => {
-        const activeCards = cards.filter(card => card.active);
-        setCards(activeCards); // Uppdatera listan med endast aktiva kort
+        const inactiveCards = cards.filter(card => !card.active); // Filtrera inaktiva kort
+        inactiveCards.forEach(card => {
+            dispatch(deleteCard(card.cardNumber)); // Radera varje inaktivt kort
+        });
     };
 
     return (
@@ -34,7 +37,9 @@ function SettingsPage({ cards, setCards, setTheme }) {
 
             {/* Radera alla inaktiva kort */}
             <div>
-                <button onClick={handleDeleteInactive} className={styles["settings-btn"]}>Delete All Inactive Cards</button>
+                <button onClick={handleDeleteInactive} className={styles["settings-btn"]}>
+                    Delete All Inactive Cards
+                </button>
             </div>
         </div>
     );

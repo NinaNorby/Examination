@@ -1,11 +1,17 @@
-/* SettingsPage.module.css */
 .settings-wrapper {
-    padding: 20px;
-  
-.settings-btn{
-    margin-top: 15px;
+  min-height: 100vh;
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  color: var(--title-color);
 }
 
+.settings-btn {
+  margin-top: 15px;
+  /* statiska färger oavsett tema  */
+  background-color: red; 
+  border: solid rgb(238, 1, 1);
 }
-
-  

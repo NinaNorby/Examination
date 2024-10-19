@@ -1,36 +1,53 @@
-.cardPreview-title {
-  color: #213547;
+.preview-card {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+.cardPreview-title {
+  text-align: center;
+  margin-bottom: 15px;
+}
+/* mOBIL: */
 .preview-wrapper {
+  width: 100%;
+  height: 150px;
   padding: 20px;
   border-radius: 10px;
-  width: 300px;
-  color: white;
+  width: 250px;
   text-align: left;
-  box-shadow: 0 0 10px #eba028;
   margin-bottom: 20px;
   margin-top: 20px;
+  font-size: 0.8rem;
+  
 }
-
+/* dator  */
+@media (min-width: 768px) {
+  .preview-wrapper {
+    width: 350px;
+    height: 200px; 
+  }
+}
 .logo {
   width: 50px;
   margin-bottom: 10px;
 }
 
-/* Dynamiska bakgrundsfärger */
 .green {
-  background-color: #82ca1e;
+  background-color: var(--green-bg, #82ca1e);
 }
 
 .orange {
-  background-color: #fdc129;
+  background-color: var(--orange-bg, #fdc129);
 }
 
 .blue {
-  background-color: #026fc9;
+  background-color: var(--blue-bg, #026fc9);
 }
 
 .gray {
-  background-color: gray;
+  background-color: var(--gray-bg, gray);
 }

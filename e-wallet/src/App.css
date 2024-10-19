@@ -1,73 +1,95 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root {
+  /* Länkar */
+  --link-color-light: #213547;
+  --link-color-dark: #ffffff;
+  --link-color-green: #ffffff;
+
+  /* Light tema */
+  --background-color-light: rgb(207, 207, 207);
+  --text-color-light: #000000;
+  --button-background-color-light: rgb(132, 133, 132);
+  --button-background-hover-light: rgb(109, 109, 109);
+  --button-text-color-light: rgb(37, 37, 37);
+
+  /* Dark tema */
+  --background-color-dark: rgb(42, 42, 42);
+  --text-color-dark: rgb(255, 255, 255);
+  --button-background-color-dark: rgb(255, 255, 255);
+  --button-background-hover-dark: rgb(134, 134, 134);
+  --button-text-color-dark: rgb(37, 37, 37);
+
+  /* Green tema */
+  --background-color-green: rgb(53, 92, 63);
+  --text-color-green: rgb(255, 255, 255);
+  --button-background-color-green: rgb(78, 87, 74);
+  --button-background-hover-green: rgb(160, 174, 154);
+  --button-text-color-green: rgb(255, 255, 255);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-
+/* Light tema */
 .light {
-  background-color: white;
-  color: black;
+  --link-color: var(--link-color-light);
+  --button-background-color: var(--button-background-color-light);
+  --button-background-hover: var(--button-background-hover-light);
+  --button-text-color: var(--button-text-color-light);
+  background-color: var(--background-color-light);
+  color: var(--text-color-light);
 }
 
+/* Dark tema */
 .dark {
-  background-color: black;
-  color: white;
+  --link-color: var(--link-color-dark);
+  --button-background-color: var(--button-background-color-dark);
+  --button-background-hover: var(--button-background-hover-dark);
+  --button-text-color: var(--button-text-color-dark);
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
 }
 
+/* Green tema */
 .green {
-  background-color: rgb(107, 153, 107);
-  color: white;
-
-form{
-  background-color: rgb(107, 153, 107);
+  --link-color: var(--link-color-green);
+  --button-background-color: var(--button-background-color-green);
+  --button-background-hover: var(--button-background-hover-green);
+  --button-text-color: var(--button-text-color-green);
+  background-color: var(--background-color-green);
+  color: var(--text-color-green);
 }
 
-  h1, h2{
-    color: rgb(58, 82, 58);
-  }
+/* Knappfärg */
+.button {
+  background-color: var(--button-background-color);
+  color: var(--button-text-color);
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-  button{
-    background-color: rgb(89, 122, 89);
-    color: white;
-  
- 
-  }
+.button:hover {
+  background-color: var(--button-background-hover);
+}
+
+/* Färg på länkarna*/
+.link-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-align: center;
+  background-color: var(--button-background-color);
+  color: var(--button-text-color);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.link-button:hover {
+  background-color: var(--button-background-hover);
+  text-decoration: none;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
 }

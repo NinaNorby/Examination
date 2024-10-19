@@ -1,4 +1,12 @@
+.header {
+  
+    padding: 1rem;
+    text-align: center;
+    font-family: system-ui;
+}
 
-.header-title {
-    color: #213547;
+.companyName {
+    font-size: 2rem;
+    font-weight: bold;
+
 }
